@@ -1,10 +1,13 @@
 from django.shortcuts import render
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 from django.shortcuts import render
 from catalog.models import Book, BorrowedBook, Author, Genre
 from django.views import generic
 
+@login_required
 def index(request):
     num_books = Book.objects.count()
     num_instances = BorrowedBook.objects.count()
@@ -24,8 +27,8 @@ def index(request):
 
     return render(request, 'index.html', context)
 
-class BookListView(generic.ListView):
+class BookListView(LoginRequiredMixin, generic.ListView):
     model = Book
 
-class BookDetailView(generic.DetailView):
+class BookDetailView(LoginRequiredMixin, generic.DetailView):
     model = Book

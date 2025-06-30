@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Author, Book, BorrowedBook, Genre
+from .models import Author, Book, BookInstance, Genre
 # Register your models here.
 @admin.register(Author)
 class AuthorAdmin(admin.ModelAdmin):
@@ -7,17 +7,17 @@ class AuthorAdmin(admin.ModelAdmin):
 
     fields = ['first_name', 'last_name', ('date_of_birth', 'date_of_death')]
 
-class BorrowedBookInline(admin.TabularInline):
-    model = BorrowedBook
+class BookInstanceInline(admin.TabularInline):
+    model = BookInstance
 
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
     list_display = ('title', 'author', 'display_genre')
 
-    inlines =[BorrowedBookInline]
+    inlines =[BookInstanceInline]
 
-@admin.register(BorrowedBook)
-class BorrowedBookAdmin(admin.ModelAdmin):
+@admin.register(BookInstance)
+class BookInstanceAdmin(admin.ModelAdmin):
     list_filter = ('status', 'due_back')
 
     fieldsets = (
