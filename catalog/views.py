@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 from django.shortcuts import render
+
 from catalog.models import Book, BookInstance, Author, Genre
 from django.views import generic
 
@@ -22,7 +23,9 @@ def index(request):
         'num_instances': num_instances,
         'num_instances_available': num_instances_available,
         'num_authors': num_authors,
+
         'num_visits': num_visits,
+
     }
 
     return render(request, 'index.html', context)
@@ -46,3 +49,4 @@ class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
             .filter(status__exact='o')
             .order_by('due_back')
         )
+
