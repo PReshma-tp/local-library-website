@@ -10,10 +10,7 @@
         <h1> Welcome to Local Library</h1>
         
       </header>
-
-      {% block content %}
-        <ul class="sidebar-nav">
-    …
+       <ul class="sidebar-nav">
    {% if user.is_authenticated %}
      <li>User: {{ user.get_username }}</li>
      <li>
@@ -25,8 +22,8 @@
    {% else %}
      <li><a href="{% url 'login' %}?next={{ request.path }}">Login</a></li>
    {% endif %}
-    …
   </ul>
+      {% block content %}
 
       {% endblock %}
     </div>
